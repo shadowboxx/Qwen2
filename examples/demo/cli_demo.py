@@ -13,7 +13,7 @@ from copy import deepcopy
 from threading import Thread
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
+from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer, BitsAndBytesConfig
 from transformers.trainer_utils import set_seed
 
 DEFAULT_CKPT_PATH = 'Qwen/Qwen2-7B-Instruct'
@@ -74,14 +74,22 @@ def _load_model_tokenizer(args):
     if args.cpu_only:
         device_map = "cpu"
     else:
-        device_map = "auto"
+        device_map = "cuda"
+
+    nf4_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_compute_dtype=torch.bfloat16
+        )
 
     model = AutoModelForCausalLM.from_pretrained(
         args.checkpoint_path,
         torch_dtype="auto",
         device_map=device_map,
         resume_download=True,
-        trust_remote_code=True
+        trust_remote_code=True,
+        quantization_config=nf4_config
     ).eval()
     model.generation_config.max_new_tokens = 2048    # For chat.
 

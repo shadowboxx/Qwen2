@@ -243,7 +243,7 @@ def make_supervised_data_module(
     rank0_print("Loading data...")
 
     train_data = []
-    with open(data_args.data_path, "r") as f:
+    with open(data_args.data_path, "r", encoding='utf-8') as f:
         for line in f:
             train_data.append(json.loads(line))
     train_dataset = dataset_cls(train_data, tokenizer=tokenizer, max_len=max_len)
