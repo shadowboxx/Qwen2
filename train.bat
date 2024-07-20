@@ -1,5 +1,6 @@
 
 set MODEL="D:\LLM\models\Qwen\Qwen2-7B-Instruct" 
+:: set MODEL="\\wsl.localhost\Ubuntu-22.04\home\huyunliu\models\Qwen\Qwen2-7B-Instruct"
 set DATA="train\train.jsonl"
 ::set DATA="examples\sft\example_data.jsonl"
 set OUTPUT="train\output"
@@ -19,15 +20,15 @@ python examples\sft\finetune.py ^
     --data_path %DATA% ^
     --bf16 True ^
     --output_dir %OUTPUT% ^
-    --num_train_epochs 50 ^
+    --num_train_epochs 3 ^
     --per_device_train_batch_size 1 ^
     --per_device_eval_batch_size 1 ^
-    --gradient_accumulation_steps 4 ^
+    --gradient_accumulation_steps 1 ^
     --evaluation_strategy "no" ^
     --save_strategy "steps" ^
     --save_steps 500 ^
     --save_total_limit 10 ^
-    --learning_rate 8e-4 ^
+    --learning_rate 5e-5 ^
     --weight_decay 0.01 ^
     --adam_beta2 0.95 ^
     --warmup_ratio 0.01 ^
@@ -37,7 +38,6 @@ python examples\sft\finetune.py ^
     --model_max_length 512 ^
     --lazy_preprocess True ^
     --use_lora %USE_LORA% ^
-    --q_lora %Q_LORA% ^
     --gradient_checkpointing 
 
 
