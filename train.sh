@@ -31,7 +31,7 @@ OUTPUT="train/output"
 DATA="train/train.jsonl"
 DS_CONFIG_PATH="examples/sft/ds_config_zero2.json"
 USE_LORA=True
-Q_LORA=False
+Q_LORA=True
 
 function usage() {
     echo '

@@ -245,14 +245,14 @@ def make_supervised_data_module(
     train_data = []
     with open(data_args.data_path, "r", encoding='utf-8') as f:
         for line in f:
-            train_data.append(json.loads(line))
+            if line : train_data.append(json.loads(line))
     train_dataset = dataset_cls(train_data, tokenizer=tokenizer, max_len=max_len)
 
     if data_args.eval_data_path:
         eval_data = []
         with open(data_args.eval_data_path, "r") as f:
             for line in f:
-                eval_data.append(json.loads(line))
+                if line : eval_data.append(json.loads(line))
         eval_dataset = dataset_cls(eval_data, tokenizer=tokenizer, max_len=max_len)
     else:
         eval_dataset = None
