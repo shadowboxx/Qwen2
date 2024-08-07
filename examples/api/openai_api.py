@@ -652,6 +652,7 @@ if __name__ == '__main__':
     # model.eval()
 
     model_dir = args.checkpoint_path
+
     if os.path.exists(os.path.join(model_dir, 'adapter_config.json')):
         model_dir = model.peft_config['default'].base_model_name_or_path
 
