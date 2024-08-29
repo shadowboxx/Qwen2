@@ -29,7 +29,7 @@ OUTPUT="train/output"
 DATA="train/train.jsonl"
 DS_CONFIG_PATH="examples/sft/ds_config_zero2.json"
 USE_LORA=True
-Q_LORA=False
+Q_LORA=True
 
 function usage() {
     echo '
@@ -119,6 +119,6 @@ torchrun $DISTRIBUTED_ARGS examples/sft/finetune.py \
 
 if [ $? -eq 0 ]; then
   mv $OUTPUT $OUTPUT-$(date +%Y%m%d)
-  echo "python examples/api/openai_api.py --server-name 0.0.0.0 --server-port 8000 --device cuda:0 --checkpoint-path $OUTPUT-$(date +%Y%m%d)" > ./api.sh
+  echo "python examples/api/openai_api.py --server-name 0.0.0.0 --server-port 8080 --device cuda:0 --checkpoint-path $OUTPUT-$(date +%Y%m%d)" > ./api.sh
   ./api.sh
 fi
