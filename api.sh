@@ -1,1 +1,1 @@
-python examples/api/openai_api.py --server-name 0.0.0.0 --server-port 8080 --device cuda:0 --checkpoint-path /home/huyunliu/GitHub/Qwen2/train/output-20240813
+python examples/api/openai_api.py --server-name 0.0.0.0 --server-port 8080 --device cuda:0 --checkpoint-path train/output-20240807

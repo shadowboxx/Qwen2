@@ -22,7 +22,7 @@ MASTER_ADDR=${MASTER_ADDR:-localhost}
 # The port for communication
 MASTER_PORT=${MASTER_PORT:-6001}
 
-MODEL_PATH="/home/huyunliu/models/Qwen/Qwen2-7B-Instruct" # Set the path if you do not want to load from huggingface directly
+MODEL_PATH="/home/huyunliu/models/Qwen/Qwen2.5-7B-Instruct" # Set the path if you do not want to load from huggingface directly
 # ATTENTION: specify the path to your training data, which should be a json file consisting of a list of conversations.
 # See https://qwen.readthedocs.io/en/latest/training/SFT/example.html#data-preparation for more information.
 OUTPUT_PATH="/home/huyunliu/GitHub/Qwen2/train/output"
@@ -57,9 +57,9 @@ torchrun $DISTRIBUTED_ARGS src/train.py \
     --warmup_steps 100 \
     --weight_decay 0.1 \
     --per_device_train_batch_size 1 \
-    --gradient_accumulation_steps 8 \
+    --gradient_accumulation_steps 4 \
     --ddp_timeout 9000 \
-    --learning_rate 5e-4 \
+    --learning_rate 2e-4 \
     --lr_scheduler_type cosine \
     --logging_steps 1 \
     --cutoff_len 4096 \

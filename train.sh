@@ -22,7 +22,7 @@ MASTER_ADDR=${MASTER_ADDR:-localhost}
 # The port for communication
 MASTER_PORT=${MASTER_PORT:-6001}
 
-MODEL="/home/huyunliu/models/Qwen/Qwen2-7B-Instruct" # Set the path if you do not want to load from huggingface directly
+MODEL="/home/huyunliu/models/Qwen/Qwen2.5-7B-Instruct" # Set the path if you do not want to load from huggingface directly
 # ATTENTION: specify the path to your training data, which should be a json file consisting of a list of conversations.
 # See https://qwen.readthedocs.io/en/latest/training/SFT/example.html#data-preparation for more information.
 OUTPUT="train/output"
@@ -89,7 +89,7 @@ torchrun $DISTRIBUTED_ARGS examples/sft/finetune.py \
     --data_path $DATA \
     --bf16 True \
     --output_dir $OUTPUT \
-    --num_train_epochs 20 \
+    --num_train_epochs 10 \
     --per_device_train_batch_size 1 \
     --per_device_eval_batch_size 1 \
     --gradient_accumulation_steps 2 \
@@ -97,7 +97,7 @@ torchrun $DISTRIBUTED_ARGS examples/sft/finetune.py \
     --save_strategy "steps" \
     --save_steps 500 \
     --save_total_limit 10 \
-    --learning_rate 1e-4 \
+    --learning_rate 5e-5 \
     --weight_decay 0.01 \
     --adam_beta2 0.95 \
     --warmup_ratio 0.01 \
@@ -115,7 +115,7 @@ torchrun $DISTRIBUTED_ARGS examples/sft/finetune.py \
     # --deepspeed ${DS_CONFIG_PATH}
     # --use_lora ${USE_LORA} \
     # --q_lora ${Q_LORA} \
-    #   --q_lora ${Q_LORA} \
+    #   
 
 if [ $? -eq 0 ]; then
   mv $OUTPUT $OUTPUT-$(date +%Y%m%d)

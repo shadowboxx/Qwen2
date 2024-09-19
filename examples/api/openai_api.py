@@ -580,7 +580,7 @@ def _get_args():
         '-c',
         '--checkpoint-path',
         type=str,
-        default='Qwen/Qwen2-7B-Instruct',
+        default='Qwen/Qwen2.5-7B-Instruct',
         help='Checkpoint name or path, default to %(default)r'
     )
     parser.add_argument('--device',
@@ -634,7 +634,7 @@ if __name__ == '__main__':
         bnb_4bit_compute_dtype=torch.bfloat16
         )
 
-    model = Qwen2ForChatLM.from_pretrained(
+    model = Qwen2ForCausalLM.from_pretrained(
         args.checkpoint_path,
         torch_dtype="auto",
         device_map=device_map,
